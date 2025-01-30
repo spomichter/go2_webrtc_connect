@@ -5,7 +5,7 @@ import numpy as np
 height, width = 720, 1280  # Adjust the size as needed
 img = np.zeros((height, width, 3), dtype=np.uint8)
 cv2.imshow('Video', img)
-cv2.waitKey(1)  # Ensure the window is created
+cv2.waitKey(10)  # Ensure the window is created
 
 import asyncio
 import logging
@@ -16,16 +16,16 @@ from go2_webrtc_driver.webrtc_driver import Go2WebRTCConnection, WebRTCConnectio
 from aiortc import MediaStreamTrack
 
 # Enable logging for debugging
-logging.basicConfig(level=logging.FATAL)
+logging.basicConfig(level=logging.DEBUG)
 
 def main():
     frame_queue = Queue()
 
     # Choose a connection method (uncomment the correct one)
-    conn = Go2WebRTCConnection(WebRTCConnectionMethod.LocalSTA, ip="192.168.8.181")
-    # conn = Go2WebRTCConnection(WebRTCConnectionMethod.LocalSTA, serialNumber="B42D2000XXXXXXXX")
+    #conn = Go2WebRTCConnection(WebRTCConnectionMethod.LocalSTA, ip="192.168.9.140")
+    conn = Go2WebRTCConnection(WebRTCConnectionMethod.LocalSTA, serialNumber="B42D2000P1A7788Q")
     # conn = Go2WebRTCConnection(WebRTCConnectionMethod.Remote, serialNumber="B42D2000XXXXXXXX", username="email@gmail.com", password="pass")
-    # conn = Go2WebRTCConnection(WebRTCConnectionMethod.LocalAP)
+    #conn = Go2WebRTCConnection(WebRTCConnectionMethod.LocalAP)
 
     # Async function to receive video frames and put them in the queue
     async def recv_camera_stream(track: MediaStreamTrack):
